@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>date</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            /* background: radial-gradient(circle at top, #172e50, #020817 70%); */
+            background-image: url(assets/image/images\ 5.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #eaf6ff;
+            padding: 20px;
+        }
+        .clock-card {
+            width: 100%;
+            max-width: 750px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid #087bff;
+            /* border: 2px solid white; */
+            border-radius: 30px;
+            background-color: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 30px #006aff55, inset 0 0 25px #006aff15;
+            text-align: center;
+        }
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            color: #9fcaff;
+            letter-spacing: 2px;
+        }
+        .time {
+            font-size: clamp(45px, 9vw, 95px);
+            font-weight: bold;
+            letter-spacing: 3px;
+            white-space: nowrap;
+            color: #36c8ff;
+            text-shadow: 0 0 25px #008cff99;
+        }
+        .date {
+            width: 60%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-weight: 500;
+            gap: 20px;
+            margin-top: 30px;
+            padding: 18px;
+            border: 1px solid #123c70;
+            border-radius: 30px;
+            color: #9fcaff;
+            /* color: #087bff; */
+            font-size: 20px;
+            text-shadow: 0 0 25px #008cff99;
+        }
+        .ampm{
+            font-size: 20px;
+        }
+        @media all and (min-width:520px) and (max-width:768px) {
+            .date {
+                width: 70%;
+            }
+        }
+        @media all and (min-width:350px) and (max-width:520px) {
+            .date {
+                width: 100%;
+                font-size: 16px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="clock-card">
+        <div class="header">
+            <span id="header-span">◷ DIGITAL CLOCK</span>
+            <span id="header-span">✦ LIVE TIME</span>
+        </div>
+        <div class="time" id="time">00:00:00</div>
+        <div class="date">
+            <span id="date">Loading date....</span>
+            <span>|</span>
+            <span id="day">Loading Day....</span>
+        </div>
+    </div>
+    <script>
+        // get element;
+        const timeElement = document.getElementById("time");
+        const dateElement = document.getElementById("date");
+        const dayElement = document.getElementById("day");
+
+        // function updateClock() {
+        //     const now = new Date();
+        //     // hours minuts seconds;
+        //     let hours = now.getHours();
+        //     const minutes = String(now.getMinutes()).padStart(2, "0");
+        //     const seconds = String(now.getSeconds()).padStart(2, "0");
+
+        //     // AM / PM
+        //     const ampm = hours >= 12 ? "PM" : "AM";
+
+        //     // Convert 24-hour format to 12-hour format
+        //     hours = hours % 12 || 12;
+
+        //     hours = String(hours).padStart(2, "0");
+
+        //     timeElement.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+
+
+        //     dateElement.textContent = now.toLocaleDateString(
+        //         "en-pk",
+        //         {
+        //             day: "2-digit",
+        //             month: "short",
+        //             year: "numeric"
+        //         }
+        //     );
+
+        //     dayElement.textContent = now.toLocaleDateString(
+        //         "en-pk",
+        //         { weekday: "long" }
+        //     );
+        // };
+        // updateClock();
+        // setInterval(updateClock, 1000);
+
+        function updateClock() {
+            const now = new Date();
+
+            // Hours, minutes, seconds
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, "0");
+            const seconds = String(now.getSeconds()).padStart(2, "0");
+
+            // AM / PM
+            const ampm = hours >= 12 ? "PM" : "AM";
+
+            // Convert 24-hour format to 12-hour format
+            hours = hours % 12 || 12;
+
+            // Add zero before single-digit hours
+            hours = String(hours).padStart(2, "0");
+
+            // Display time
+            timeElement.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+
+            // Display date
+            dateElement.textContent = now.toLocaleDateString("en-PK", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            });
+
+            // Display day
+            dayElement.textContent = now.toLocaleDateString("en-PK", {
+                weekday: "long"
+            });
+        };
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+
+</html>
